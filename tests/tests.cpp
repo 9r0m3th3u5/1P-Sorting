@@ -20,14 +20,16 @@
 #include "sneaky-prevent-std-containers.h"   // prevent std containers as backing stores for priority queues and heaps
 #include "sneaky-project-requirements.h"     // look for project-requirement circumvention
 											 
-using namespace std;
+using std::string;
+using std::vector;
+using std::ostream;
 
 // Template tests
 string randomString(int n) {
     string s = "";
     for (int i=0; i<n; i++)
     {
-        s+=(rand()%26+'a');
+        s+=(::rand()%26+'a');
     }
     return s;
 }
