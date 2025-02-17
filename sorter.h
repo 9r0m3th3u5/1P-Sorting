@@ -36,25 +36,27 @@ void sorter(std::vector<T> &items, std::size_t k) {
 	if(items.size() == 1) return items;
 
 	size_t splitSize = items.size() / k;
-	size_t overflow = items.size() - splitSize * k;
+	size_t overflow = items.size() % k;
 	vector<T>* arrays = new vector<T>[k];
-	unsigned count = 0;
-	for(unsigned i = 0; i < overflow; i++) {
-		arrays[i] = new vector<T>(splitSize + 1);
-		for(unsigned j = 0; j < splitSize + 1; j++) {
-			arrays[i].push(items.get(count));
-			count++;
-		}
+	for(unsigned i = 0; i < k; i++) {
+		arrays + i = new vector<T>();
 	}
-	for(unsigned i = overflow; i < k; i++) {
-		arrays[i] = new vector<T>(splitSize);
-		for(unsigned j = 0; j < splitSize; j++) {
-			arrays[i].push(items.get(count));
-			count++;
-		}
+	for(unsigned i = 0; i < items.size(); i++) {
+		arrays[i % k].push_back(items.at(0));
+		items.erase(0);
 	}
+
 	for(unsigned i = 0; i < k; i++) {
 		sorter(arrays[i], arrays[i].size());
+	}
+
+	unsigned min = 0;
+	for(unsigned i = 0; i < items.size(); i++) {
+		for(unsigned j = 0; j < k; j++) {
+			if(!arrays[j].empty() && arrays[j].at(0) < arrays[min].at(0)) min = j;
+		}
+		items.push_back(arrays[min].at(0));
+		arrays[min].erase(0);
 	}
 }
 #endif
